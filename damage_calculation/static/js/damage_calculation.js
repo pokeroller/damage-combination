@@ -690,8 +690,6 @@ function PrintMsg (ExecutionTimes, FaintPossibility) {
 function DamageCalculationExecution(){
   let ExecutionTimes = CountStaticExecutionTimes();
   HP.disabled = true;
-  AttackItem.disabled = true;
-  AttackAbility.disabled = true;
   DefenceItem.disabled = true;
   DefenceAbility.disabled = true;
   Damage = DamageCalculation ();
@@ -710,8 +708,6 @@ function ResetAll () {
     LeftHpCalculation.LeftHp = [[HpValue, 1]];
   }
   HP.disabled = false;
-  AttackItem.disabled = false;
-  AttackAbility.disabled = false;
   DefenceItem.disabled = false;
   DefenceAbility.disabled = false;
 
