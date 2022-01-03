@@ -1,0 +1,65 @@
+.WholePage {
+    position: relative;
+    width: 90%;
+    padding:10px
+}
+
+.WholePage > div:not(.Result, .ButtonAndLogs) {
+    height: 16em;
+    width: 60%;
+    padding: 1em 2em;
+    margin: 2em 0;
+    background: #f0f7ff;
+    border: dashed 2px #5b8bd0;/*点線*/
+}
+
+.ButtonAndLogs{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 3em;
+    width: 25%;
+    display: flex;
+}
+
+.Result {
+    position: absolute;
+    top: 3em;
+    right: 0;
+    width: 25%;
+    height: 40em;
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    border: double 5px #4ec4d3;
+    overflow: scroll;
+}
+
+.SideText {
+    font-size : 25px;
+}
+
+/* The same row*/
+.SideInput {
+    display: flex;
+}
+
+.EachInputItem {
+    padding-left: 20px;
+}
+
+.EachInputItemItemAndAbility {
+    padding-left: 20px;
+    width: 600px;
+}
+
+.CriticalLank {
+    width: 75px;  
+}
+
+.Field {
+    width: 100px;  
+}
+
+.EachButton {
+    padding: 20px;
+}

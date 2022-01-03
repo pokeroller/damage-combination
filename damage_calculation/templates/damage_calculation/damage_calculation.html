@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/damage_calculation.css' %}">
+<title>Damage Combination</title>
+</head>
+<body>
+
+<div class="WholePage">        
+    <div class="SideInformation">
+        <div class="SideText">
+            攻撃側
+        </div>
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label>攻撃力：<input type="text" size="3" id="AttackText"></label>
+                </p>
+            </div>
+
+            <div class="EachInputItem">
+                <p>
+                    <label>命中率：<input type="text" size="3" id="AccuracyText"></label>
+                </p>
+            </div>
+
+            <div class="EachInputItem">
+                <p>
+                    <label>技威力：<input type="text" size="3" id="PowerText"></label>
+                </p>
+            </div>
+
+            <div class="EachInputItem">
+                <p>
+                    <label for="AttackLank">攻撃ランク：</label>
+                    <select id="AttackLank">
+                    <option value="6"> +6 </option>
+                    <option value="5"> +5 </option>
+                    <option value="4"> +4 </option>
+                    <option value="3"> +3 </option>
+                    <option value="2"> +2 </option>
+                    <option value="1"> +1 </option>
+                    <option value="0"> 0 </option>
+                    <option value="-1"> -1 </option>
+                    <option value="-2"> -2 </option>
+                    <option value="-3"> -3 </option>
+                    <option value="-4"> -4 </option>
+                    <option value="-5"> -5 </option>
+                    <option value="-6"> -6 </option>
+                    </select>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label>タイプ一致：<input type="checkbox" id="Stab"></label>
+                </p>
+            </div>
+        </div>
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label for="CriticalLank">急所ランク：</label>
+                    <select id="CriticalLank" class="CriticalLank">
+                    <option value="3"> +3 </option>
+                    <option value="2"> +2 </option>
+                    <option value="1"> +1 </option>
+                    <option value="0"> 0 </option>
+                    <option value="-1"> 急所に当たらない </option>
+                    </select>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label for="Weather">天候：</label>
+                    <select id="Weather">
+                    <option value="1"> ダメージ x1.5 </option>
+                    <option value="0"> なし </option>
+                    <option value="-1"> ダメージ x0.5 </option>
+                    </select>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label for="Field">フィールド：</label>
+                    <select id="Field" class="Field">
+                    <option value="2"> 技威力 x2x1.3 (ライジングボルト) </option>
+                    <option value="2"> 技威力 x1.5x1.3 (ワイドフォース) </option>
+                    <option value="1"> 技威力 x1.3 </option>
+                    <option value="0"> なし </option>
+                    <option value="-1"> 技威力 x0.5 </option>
+                    </select>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label>やけど：<input type="checkbox" id="AttackBurned"></label>
+                </p>
+            </div>
+        </div>
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label for="AttackItem">アイテム：</label>
+                    <select id="AttackItem" class="EachInputItemItemAndAbility">
+                    <option value="0"> なし </option>
+                    <option value="1"> 技威力 x1.1 (ちからのハチマキ・ものしりめがね) </option>
+                    <option value="2"> 技威力 x1.2 (タイプ強化アイテム・こころのしずく・こんごうだま・しらたま・はっきんだま)</option>
+                    <option value="3"> ダメージ x1.2 (たつじんのおび) </option>
+                    <option value="4"> 技威力 x1.3 (各種ジュエル) </option>
+                    <option value="5"> ダメージ x1.3 (いのちのたま) </option>
+                    <option value="6"> 攻撃(特攻) x1.5 (こだわりハチマキ・こだわりメガネ) </option>
+                    <option value="7"> 技威力 x2 (でんきだま) </option>
+                    </select>
+                </p>    
+            </div>
+        </div>
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label for="AttackAbility">特性：　　</label>
+                    <select id="AttackAbility" class="EachInputItemItemAndAbility">
+                    <option value="0"> なし </option>
+                    <option value="1"> 技威力 x1.2 (ノーマルスキン・スカイスキン・フェアリースキン・エレキスキン・てつのこぶし・すてみ)</option>
+                    <option value="2"> ダメージ x1.25 (ブレインフォース) </option>
+                    <option value="3"> 技威力 x1.25 (とうそうしん(同性)) </option>
+                    <option value="4"> 技威力 x1.3 (アナライズ・すなのちから・ちからづく・かたいツメ) </option>
+                    <option value="5"> 技威力 x1.33 (ダークオーラ・フェアリーオーラ) </option>
+                    <option value="6"> 技威力 x1.5 (もうか・しんりょく・げきりゅう・むしのしらせ・ねつぼうそう・メガランチャー・がんじょうあご・テクニシャン・どくぼうそう) </option>
+                    <option value="7"> 攻撃(特攻) x1.5 (もらいび・こんじょう・はりきり・フラワーギフト・プラス・マイナス・はがねのせいしん・サンパワー) </option>
+                    <option value="8"> 技威力 x2 (ちからもち・ヨガパワー) </option>
+                    <option value="9"> 攻撃(特攻) x2 (すいほう) </option>
+                    <option value="10"> ダメージ x2 (いろめがね) </option>
+                    <option value="11"> 技威力 x0.75 (とうそうしん(異性)) </option>
+                    <option value="12"> 攻撃(特攻) x0.5 (よわき・スロースタート) </option>
+                    <option value="13"> てきおうりょく </option>
+                    {% comment %}
+                    <option value="14"> おやこあい </option>
+                    <option value="15"> スナイパー </option>
+                    {% endcomment %}
+                    </select>
+                </p>    
+            </div>
+        </div>
+    </div>
+    
+    <div class="SideInformation">
+        <div class="SideText">防御側</div>
+
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label>HP：<input type="text" size="3" id="HpText"></label>
+                </p>
+            </div>
+
+            <div class="EachInputItem">
+                <p>
+                    <label>防御力：<input type="text" size="3" id="DefenceText"></label>
+                </p>
+            </div>
+
+            <div class="EachInputItem">
+                <p>
+                    <label for="DefenceLank">防御ランク：</label>
+                    <select id="DefenceLank">
+                    <option value="6"> +6 </option>
+                    <option value="5"> +5 </option>
+                    <option value="4"> +4 </option>
+                    <option value="3"> +3 </option>
+                    <option value="2"> +2 </option>
+                    <option value="1"> +1 </option>
+                    <option value="0"> 0 </option>
+                    <option value="-1"> -1 </option>
+                    <option value="-2"> -2 </option>
+                    <option value="-3"> -3 </option>
+                    <option value="-4"> -4 </option>
+                    <option value="-5"> -5 </option>
+                    <option value="-6"> -6 </option>
+                    </select>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label>ダイマックス：<input type="checkbox" id="Dynamax"></label>
+                </p>
+            </div>
+        </div>
+
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label>リフレクター/ひかりのかべ：<input type="checkbox" id="Reflect"></label>
+                </p>
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label for="StatusAilment">状態異常：</label>
+                    <select id="StatusAilment">
+                    <option value="0"> なし </option>
+                    <option value="1"> やけど </option>
+                    <option value="2"> どく</option>
+                    <option value="3"> もうどく </option>
+                    </select>
+                </p>    
+            </div>
+            <div class="EachInputItem">
+                <p>
+                    <label>まもる (ダイマックス技貫通)：<input type="checkbox" id="Protect"></label>
+                </p>
+            </div>
+        </div>
+
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label for="DefenceItem">アイテム：</label>
+                    <select id="DefenceItem" class="EachInputItemItemAndAbility">
+                    <option value="0"> なし </option>
+                    <option value="1"> 混乱実 (マゴのみ・バンジのみ・イアのみ・フィラのみ・イアのみ) </option>
+                    <option value="2"> オボンのみ</option>
+                    <option value="3"> しんかのきせき </option>
+                    <option value="4"> たべのこし・くろいヘドロ </option>
+                    <option value="5"> とつげきチョッキ </option>
+                    <option value="6"> メタルパウダー </option>
+                    <option value="7"> 半減実 </option>
+                    </select>
+                </p>    
+            </div>
+        </div>
+
+        <div class="SideInput">
+            <div class="EachInputItem">
+                <p>
+                    <label for="DefenceAbility">特性：　　</label>
+                    <select id="DefenceAbility" class="EachInputItemItemAndAbility">
+                    <option value="0"> なし </option>
+                    <option value="1"> 技威力 x1.25 (かんそうはだ)</option>
+                    <option value="2"> 防御(特防) x1.5 (フラワーギフト・くさのけがわ・ふしぎなウロコ) </option>
+                    <option value="3"> 防御 x2 (ファーコート) </option>
+                    <option value="4"> ダメージ x2 (もふもふ) </option>
+                    <option value="5"> 技威力 x0.5 (たいねつ) </option>
+                    <option value="6"> 攻撃(特攻) x0.5 (あついしぼう・すいほう) </option>
+                    <option value="7"> ダメージ x0.5 (もふもふ・マルチスケイル・ファントムガード) </option>
+                    <option value="8"> アイスボディ・あめうけざら </option>
+                    <option value="9"> ポイズンヒール </option>
+                    <option value="10"> フィルター・プリズムアーマー・ハードロック </option>
+                    <option value="11"> サンパワー </option>
+                    </select>
+                </p>    
+            </div>
+        </div>
+    </div>
+
+    
+    <p>
+        <label for="TypeChart">タイプ相性：</label>
+        <select id="TypeChart">
+        <option value="2"> 効果抜群 (x4) </option>
+        <option value="1"> 効果抜群 (x2) </option>
+        <option value="0"> 等倍 </option>
+        <option value="-1"> いまひとつ (x0.5) </option>
+        <option value="-2"> いまひとつ (x0.25) </option>
+        </select>
+    </p>
+    
+    <div class="ButtonAndLogs">
+        <div class="EachButton">
+            <p>
+                <input type="button" value="実行" id="ExecutionButton">
+            </p>
+        </div>
+        <div class="EachButton">
+            <p>
+                <input type="button" value="結果リセット" id="ResetButton">
+            </p>
+        </div>
+    </div>
+
+    <div class="Result">
+        <p id="msg"></p>
+    </div>
+</div>
+
+<a href="../admin" target="_blank" rel="noopener noreferrer">管理者画面</a>
+
+<script type="text/javascript" src="{% static 'js/damage_calculation.js' %}"></script>
+
+</body>
+</html>

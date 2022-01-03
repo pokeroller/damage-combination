@@ -1,0 +1,1 @@
+web: gunicorn damage_combination.wsgi --log-file -
